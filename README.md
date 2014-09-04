@@ -30,16 +30,22 @@ Without git:
 
 Simply copy the content of mkjl.sh from the github repository, then paste it somewhere in an executable .sh script.
 
+Prepare your system:
+
+In the mkjl directory, run :
+
+./mkjl-install.sh
+
 Usage 
 =====
 
-./mkjl.sh $jailname $template $ip4
+./mkjl-create.sh $jailname $template $ip4
 
 Available templates: freebsd10.0, arch, jessie (wheezy is not included because of blocking bugs)
 
 Exemple :
 
-./mkjl.sh www jessie 10.0.2.10
+./mkjl-create.sh www jessie 10.0.2.10
 
 Then start the jail daemon.
 
