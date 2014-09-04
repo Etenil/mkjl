@@ -13,8 +13,7 @@ Requirements
 
 - Tested on FreeBSD 10 i386 and amd64. 
 - a working internet connection 
-- perl5, debootstrap, rsync (use pkg or ports) 
-- ....
+- perl5, debootstrap, rsync, pacman (use pkg or ports) 
 - git (optionnal, to fetch mkjl) 
 - Enable fdescfs, linprocfs, tmpfs.
 - mkjl is not (yet) compatible with ezjail or jail.conf so be careful
@@ -47,7 +46,7 @@ Then start the jail daemon.
 Bugs
 ====
 
-- (2014.09.02) debootstrap will fail to install the jessie template. This is related to the deboostrap package itself. I hope this will be fixed soon.
+- jessie template does not working, because of a broken deboostrap package. I hope this will be fixed soon.
 - kfreebsd jails won't start, you need to fix it manually (see "kfreebsd jail fix")
 
 kfreebsd jail fix ('www' is the name of the jail):
@@ -61,8 +60,13 @@ TODO
 ====
 
 - Better coding skills (pebkac)
+- Better english
+- Template cleaning function
+- Error detection
 - Deleting a jail
 - Updating a jail
+- Flavour support
+- Manpage
 - Fix the Jessie template
 - More templates
 - ZFS support
