@@ -33,13 +33,13 @@ Simply copy the content of mkjl.sh from the github repository, then paste it som
 Usage 
 =====
 
-./mkjl.sh $jailname $template
+./mkjl.sh $jailname $template $ip4
 
 Available templates: freebsd10.0, arch, jessie (wheezy is not included because of blocking bugs)
 
 Exemple :
 
-./mkjl.sh www jessie
+./mkjl.sh www jessie 10.0.2.10
 
 Then start the jail daemon.
 
