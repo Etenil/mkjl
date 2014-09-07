@@ -6,17 +6,16 @@ mkjl is a (very bad) script to create FreeBSD, Debian GNU/kFreeBSD and ArchBSD j
 How does it works ? 
 ===================
 
-mkjl will create a local template for FreeBSD, ArchBSD and Debian GNU/kFreeBSD according to the jail type. Then the template will be duplicated with rsync to provision the jail. Finally, mkjl will write the jail configuration in /etc/jail.conf. You just have to add jail_enable="YES" into /etc/rc.conf.local then the jail daemon. 
+mkjl will create a local template for FreeBSD, ArchBSD and Debian GNU/kFreeBSD according to the jail type. Then the template will be duplicated with rsync to provision the jail. 
 
 Requirements 
 =============
 
 - Tested on FreeBSD 10 i386 and amd64. 
 - a working internet connection 
-- perl5, debootstrap, rsync, pacman (use pkg or ports) 
-- git (optionnal, to fetch mkjl) 
-- Enable fdescfs, linprocfs, tmpfs.
-- mkjl is not (yet) compatible with ezjail or jail.conf so be careful
+- perl5, debootstrap, rsync, pacman (from pkg or ports) 
+- git (optionnal) 
+- Enable fdescfs, linprocfs, tmpfs (add fdescfs_load="YES", linprocfs_load="YES" and tmpfs_load="YES" in /boot/loader.conf).
 - a sonic screwdriver (ok, it's optionnal)
 
 Installation
@@ -30,35 +29,31 @@ Without git:
 
 Simply copy the content of mkjl.sh from the github repository, then paste it somewhere in an executable .sh script.
 
-Prepare your system:
-
-In the mkjl directory, run :
-
-./mkjl-install.sh
-
 Usage 
 =====
 
-./mkjl-create.sh $jailname $template $ip4
+./mkjl.sh $jailname $template $ip4
 
-Available templates: freebsd10.0, arch, jessie (wheezy is not included because of blocking bugs)
+Available templates :
+- jessie (Debian GNU/kFreeBSD Jessie)
+- arch (ArchBSD current)
+- freebsd10.0 (FreeBSD 10.0-RELEASE)
 
 Exemple :
 
-./mkjl-create.sh www jessie 10.0.2.10
+./mkjl.sh www jessie 10.0.2.10
 
-Then start the jail daemon.
+mkjl does not parse (yet) /etc/jail.conf so you have to do it manually. Take a look at the jail.conf.example file. Do not forget to add jail_enable="YES" in /etc/rc.conf.local.
 
 Bugs
 ====
 
-- jessie template does not working, because of a broken deboostrap package. I hope this will be fixed soon.
-- kfreebsd jails won't start, you need to fix it manually (see "kfreebsd jail fix")
+- jessie template may fail to install because the debootstrap package is broken
+- jessie jails won't start. You have to fix them with the following procedure :
 
-kfreebsd jail fix ('www' is the name of the jail):
+(Execute on your FreeBSD host, this implies "www" is the hostname of the jail)
 cp /etc/master.passwd /usr/jails/www/etc/
 pwd_mkdb -d /usr/jails/www/etc -p /usr/jails/www/etc/master.passwd
-Then, start your jail, and run :
 jexec www bash
 dpkg-reconfigure base-passwd
 
@@ -67,11 +62,11 @@ TODO
 
 - Better coding skills (pebkac)
 - Better english
-- Template cleaning function
 - Error detection
 - Deleting a jail
 - Updating a jail
 - Flavour support
+- Automatic parse of jail.conf
 - Manpage
 - Fix the Jessie template
 - More templates

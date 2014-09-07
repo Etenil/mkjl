@@ -86,6 +86,7 @@ printf \
 ip4.addr = $ip4;
 persist;
 }" >> /usr/local/etc/mkjl/$hostname.conf
+cp /etc/localtime /usr/jails/$hostname/etc/
 echo "Your jail is ready"
 
 fi
