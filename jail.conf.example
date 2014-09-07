@@ -1,0 +1,26 @@
+# DEFAULT PARAMETERS
+#
+exec.start      = "/bin/sh /etc/rc";
+exec.stop = "/bin/sh /etc/rc.shutdown";
+exec.clean;
+mount.devfs;
+path = "/usr/jails/$name";
+host.hostname = "$name";
+
+# INDIVIDUAL JAIL PARAMETERS
+#
+jessie {
+        allow.mount;
+        mount.fstab="/usr/jails/jessie/etc/fstab.jessie";
+        ip4.addr = re0|192.168.0.13;
+        exec.start = "/etc/init.d/rc 3";
+        exec.stop = "/etc/init.d/rc 0";
+}
+freebsd {
+        ip4.addr = re0|192.168.0.12;
+        persist;
+}
+archbsd {
+        ip4.addr = re0|192.168.0.11;
+        persist;
+}

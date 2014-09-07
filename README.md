@@ -32,7 +32,7 @@ Simply copy the content of mkjl.sh from the github repository, then paste it som
 Usage 
 =====
 
-./mkjl.sh $jailname $template $ip4
+./mkjl.sh $jailname $template 
 
 Available templates :
 - jessie (Debian GNU/kFreeBSD Jessie)
@@ -41,7 +41,7 @@ Available templates :
 
 Exemple :
 
-./mkjl.sh www jessie 10.0.2.10
+./mkjl.sh www jessie 
 
 mkjl does not parse (yet) /etc/jail.conf so you have to do it manually. Take a look at the jail.conf.example file. Do not forget to add jail_enable="YES" in /etc/rc.conf.local.
 

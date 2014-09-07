@@ -4,8 +4,6 @@
 # Define variables
 hostname=$1
 template=$2
-ip4=$3
-ip6=$4
 
 # Detect architecture
 if [ `uname -m` = amd64 ]; then
@@ -36,7 +34,7 @@ echo "Jessie template is present."
 fi
 
 # Provision the Jessie jail
-echo "Creating and provision the $hostname jail..."
+echo "Creating and provisioning the $hostname jail..."
 rsync -Ha /usr/jails/t_jessie/ /usr/jails/$hostname
 
 # Configure the Jessie jail
@@ -47,17 +45,7 @@ tmpfs           /usr/jails/$hostname/run            tmpfs           rw,noexec,no
 tmpfs           /usr/jails/$hostname/run/lock       tmpfs           rw,noexec,nosuid    0 0
 tmpfs           /usr/jails/$hostname/run/shm        tmpfs           rw,noexec,nosuid    0 0"\
 >> /usr/jails/$hostname/etc/fstab.$hostname
-
-printf \
-"$hostname {
-allow.mount;
-mount.fstab= /usr/jails/$hostname/etc/fstab.$hostname;
-ip4.addr = $ip4;
-exec.start = /etc/init.d/rc 3;
-exec.stop = /etc/init.d/rc 0;
-}" >> /usr/local/etc/mkjl/$hostname.conf
 echo "Your jail is ready, don't forget to fix base-passwd"
-
 fi
 
 # If FreeBSD10.0 template
@@ -79,16 +67,7 @@ fi
 # Provision the FreeBSD10.0 jail
 echo "Creating and provision the $hostname jail..."
 rsync -Ha /usr/jails/t_freebsd10.0/ /usr/jails/$hostname
-
-# Configure the FreeBSD10.0 jail
-printf \
-"$hostname {
-ip4.addr = $ip4;
-persist;
-}" >> /usr/local/etc/mkjl/$hostname.conf
-cp /etc/localtime /usr/jails/$hostname/etc/
 echo "Your jail is ready"
-
 fi
 
 # If ArchBSD template
@@ -115,13 +94,5 @@ fi
 # Provision the ArchBSD jail
 echo "Creating and provisionning the $hostname jail..."
 rsync -Ha /usr/jails/t_arch/ /usr/jails/$hostname
-
-# Configuring the ArchBSD jail
-printf \
-"$hostname {
-ip4.addr = $ip4;
-persist;
-}" >> /usr/local/etc/mkjl/$hostname.conf
 echo "Your jail is ready"
-
 fi
