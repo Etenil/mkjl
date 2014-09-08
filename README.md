@@ -1,7 +1,7 @@
 mkjl
 ====
 
-mkjl is a (very bad) script to create FreeBSD, Debian GNU/kFreeBSD and ArchBSD jail inside a FreeBSD host. Ezjail is more powerfull and flexible, so if you want to use FreeBSD jails only, you definitely should use ezjail. If you want to manage Debian GNU/kFreeBSD or ArchBSD jails, please try mkjl.
+mkjl is a (very bad) script to create FreeBSD, Debian GNU/kFreeBSD and ArchBSD jail inside a FreeBSD host. 
 
 How does it works ? 
 ===================
@@ -35,9 +35,9 @@ Usage
 ./mkjl.sh $jailname $template 
 
 Available templates :
-- jessie (Debian GNU/kFreeBSD Jessie)
-- arch (ArchBSD current)
-- freebsd10.0 (FreeBSD 10.0-RELEASE)
+- t_debian8 (Debian GNU/kFreeBSD Jessie)
+- t_archbsd (ArchBSD current)
+- t_freebsd10 (FreeBSD 10.0-RELEASE)
 
 Exemple :
 
@@ -45,11 +45,16 @@ Exemple :
 
 mkjl does not parse (yet) /etc/jail.conf so you have to do it manually. Take a look at the jail.conf.example file. Do not forget to add jail_enable="YES" in /etc/rc.conf.local.
 
+Delete a jail :
+
+chflags -R noschg /usr/jails/www && rm -rf /usr/jails/www
+
 Bugs
 ====
 
-- jessie template may fail to install because the debootstrap package is broken
-- jessie jails won't start. You have to fix them with the following procedure :
+- t_archbsd works, but pacman is not usable.
+- t_debian8 template may fail to install because the debootstrap package is broken
+- t_debian8 jails won't start. You have to fix them with the following procedure :
 
 (Execute on your FreeBSD host, this implies "www" is the hostname of the jail)
 cp /etc/master.passwd /usr/jails/www/etc/
@@ -63,12 +68,8 @@ TODO
 - Better coding skills (pebkac)
 - Better english
 - Error detection
-- Deleting a jail
-- Updating a jail
-- Flavour support
-- Automatic parse of jail.conf
-- Manpage
-- Fix the Jessie template
+- Automatic parameters for localtime
+- Add a default periodic.conf and rc.conf for FreeBSD jails
+- Fix t_debian8
+- Fix pacman in t_archbsd
 - More templates
-- ZFS support
-- IPv6 support

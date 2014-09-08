@@ -1,0 +1,31 @@
+# Architecture translation
+if [ `uname -m` = amd64 ]; then
+arch=x86_64              
+elif [ `uname -m` = i386 ]; then
+arch=i686
+fi
+
+# Checking if t_archbsd is present.
+# If not, download and install it.
+if [ ! -d "/usr/jails/t_archbsd" ]; then
+echo "t_archbsd is missing. Downloading..."
+mkdir -p /usr/jails/t_archbsd/var/lib/pacman
+mkdir -p /usr/jails/t_archbsd/var/cache/pacman/pkg
+pacman-key --init
+pacman -Sy base \
+-r /usr/jails/t_archbsd \
+--noconfirm \
+--cachedir /usr/jails/t_archbsd/var/cache/pacman \
+--arch $arch \
+--config ./pacman.conf
+fi
+if [ -d "/usr/jails/t_archbsd" ]; then
+echo "t_archbsd is present."
+fi
+
+# Provision the jail
+echo "Creating and provisionning the $hostname jail..."
+rsync -Ha /usr/jails/t_archbsd/ /usr/jails/$hostname
+cp /etc/resolv.conf /usr/jails/$hostname/etc/
+echo "Your jail is ready"
+fi

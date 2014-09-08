@@ -1,0 +1,19 @@
+# Checking if t_freebsd10 is present.
+# If not, fetch and extract it.
+if [ ! -d "/usr/jails/t_freebsd10" ]; then
+echo "t_freebsd10 is missing. Downloading..."
+fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/`uname -m`/10.0-RELEASE/base.txz -o /tmp/
+mkdir /usr/jails/t_freebsd10
+tar -xvzf /tmp/base.txz -C /usr/jails/t_freebsd10
+rm /tmp/base.txz
+fi
+if [ -d "/usr/jails/t_freebsd10" ]; then
+echo "t_freebsd10 is present."
+fi
+
+# Provision the jail
+echo "Creating and provision the $hostname jail..."
+rsync -Ha /usr/jails/t_freebsd10/ /usr/jails/$hostname
+cp /etc/resolv.conf /usr/jails/$hostname/etc/
+echo "Your jail is ready"
+fi
