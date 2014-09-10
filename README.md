@@ -27,12 +27,6 @@ With git:
 git clone https://github.com/src386/mkjl
 ```
 
-Without git:
-
-```
-Simply copy the content of mkjl.sh from the github repository, then paste it somewhere in an executable .sh script.
-```
-
 Usage 
 =====
 
