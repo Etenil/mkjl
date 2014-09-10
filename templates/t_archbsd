@@ -8,23 +8,40 @@ fi
 # t_archbsd must exist; if it doesn't, download and install it.
 if [ ! -d "/usr/jails/t_archbsd" ]; then
 echo "t_archbsd is missing. Downloading..."
+
+# Create pacman directories
 mkdir -p /usr/jails/t_archbsd/var/lib/pacman
 mkdir -p /usr/jails/t_archbsd/var/cache/pacman/pkg
-pacman-key --init
+
+# Generate a temporary pacman.conf
+rm /tmp/pacman.conf 2>%1
+printf "[options]
+SigLevel = Never
+[core]
+Server = ftp://ftp.archbsd.net/core/os/$arch" >> /tmp/pacman.conf
+
+# Pacstrap base system
 pacman -Sy base \
 -r /usr/jails/t_archbsd \
 --noconfirm \
 --cachedir /usr/jails/t_archbsd/var/cache/pacman \
 --arch $arch \
---config ./pacman.conf
-fi
-if [ -d "/usr/jails/t_archbsd" ]; then
-echo "t_archbsd is present."
+--config /tmp/pacman.conf
+rm /tmp/pacman.conf
 fi
 
 # Provision the jail
-echo "Creating and provisionning the $hostname jail..."
+echo "Create and provision the $hostname jail..."
 rsync -Ha /usr/jails/t_archbsd/ /usr/jails/$hostname
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
-echo "Your jail is ready"
-fi
+
+# Configure the jail
+sed "s/auto/$arch/g" /usr/jails/$hostname/etc/pacman.conf > /tmp/pacman.tmp \
+&& mv /tmp/pacman.tmp /usr/jails/$hostname/etc/pacman.conf
+
+# Populate pacman keyring inside the jail
+jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --init
+jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --populate archbsd
+
+# Clean
+umount /usr/jails/$hostname/dev 

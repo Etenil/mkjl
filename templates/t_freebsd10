@@ -6,13 +6,12 @@ mkdir /usr/jails/t_freebsd10
 tar -xvzf /tmp/base.txz -C /usr/jails/t_freebsd10
 rm /tmp/base.txz
 fi
-if [ -d "/usr/jails/t_freebsd10" ]; then
-echo "t_freebsd10 is present."
-fi
 
 # Provision the jail
 echo "Creating and provision the $hostname jail..."
 rsync -Ha /usr/jails/t_freebsd10/ /usr/jails/$hostname
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
+cp ./rc.conf /usr/jails/$hostname/etc/
+cp ./periodic.conf /usr/jails/$hostname/etc/
 echo "Your jail is ready"
 fi

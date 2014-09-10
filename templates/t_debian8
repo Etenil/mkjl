@@ -10,9 +10,6 @@ if [ ! -d "/usr/jails/t_debian8" ]; then
 echo "t_debian8 is missing. Downloading..."
 debootstrap --arch $arch jessie /usr/jails/t_debian8 http://cdn.debian.net/debian
 fi
-if [ -d "/usr/jails/t_debian8" ]; then
-echo "t_debian8 is present."
-fi
 
 # Provision the jail
 echo "Creating and provisioning the $hostname jail..."
@@ -27,5 +24,8 @@ tmpfs           /usr/jails/$hostname/run            tmpfs           rw,noexec,no
 tmpfs           /usr/jails/$hostname/run/lock       tmpfs           rw,noexec,nosuid    0 0
 tmpfs           /usr/jails/$hostname/run/shm        tmpfs           rw,noexec,nosuid    0 0"\
 >> /usr/jails/$hostname/etc/fstab.$hostname
-echo "Your jail is ready, don't forget to fix base-passwd"
-fi
+
+# Fix base-passwd
+cp /etc/master.passwd /usr/jails/$hostname/etc/
+pwd_mkdb -d /usr/jails/$hostname/etc -p /usr/jails/$hostname/etc/master.passwd
+jail -c path=/usr/jails/$hostname command=/usr/bin/dpkg-reconfigure base-passwd

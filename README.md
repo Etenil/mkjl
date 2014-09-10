@@ -62,17 +62,9 @@ chflags -R noschg /usr/jails/www && rm -rf /usr/jails/www
 Bugs
 ====
 
-- t_archbsd works, but pacman is not usable.
+- t_archbsd is to verbose, pacman output should be hidden
+- t_archbsd will leave a devfs mountpoint
 - t_debian8 template may fail to install because the debootstrap package is broken
-- t_debian8 jails won't start. You have to fix them with the following procedure:
-
-```
-# Execute on your FreeBSD host, in this example "www" is the hostname of the jail
-cp /etc/master.passwd /usr/jails/www/etc/
-pwd_mkdb -d /usr/jails/www/etc -p /usr/jails/www/etc/master.passwd
-jexec www bash
-dpkg-reconfigure base-passwd
-```
 
 TODO
 ====
@@ -81,7 +73,4 @@ TODO
 - Better English
 - Error handling
 - Automatic parameters for localtime
-- Add a default periodic.conf and rc.conf for FreeBSD jails
-- Fix t_debian8
-- Fix pacman in t_archbsd
 - Add support for more templates
