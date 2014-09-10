@@ -1,12 +1,11 @@
-# Architecture translation
+# Debian doesn't use the same arch names as FreeBSD. Translating here.
 if [ `uname -m` = amd64 ]; then
 arch=kfreebsd-amd64             
 elif [ `uname -m` = i386 ]; then
 arch=kfreebsd-i386
 fi
 
-# Checking if t_debian8 is present.
-# If not, download it.
+# t_debian8 must exist; if it doesn't, download and install it.
 if [ ! -d "/usr/jails/t_debian8" ]; then
 echo "t_debian8 is missing. Downloading..."
 debootstrap --arch $arch jessie /usr/jails/t_debian8 http://cdn.debian.net/debian

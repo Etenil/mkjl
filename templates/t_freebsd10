@@ -1,5 +1,4 @@
-# Checking if t_freebsd10 is present.
-# If not, fetch and extract it.
+# t_freebsd10 must exist; if it doesn't, download and install it.
 if [ ! -d "/usr/jails/t_freebsd10" ]; then
 echo "t_freebsd10 is missing. Downloading..."
 fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/`uname -m`/10.0-RELEASE/base.txz -o /tmp/

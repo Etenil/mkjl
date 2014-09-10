@@ -1,12 +1,11 @@
-# Architecture translation
+# ArchBSD doesn't use the same arch names as FreeBSD. Translating here.
 if [ `uname -m` = amd64 ]; then
 arch=x86_64              
 elif [ `uname -m` = i386 ]; then
 arch=i686
 fi
 
-# Checking if t_archbsd is present.
-# If not, download and install it.
+# t_archbsd must exist; if it doesn't, download and install it.
 if [ ! -d "/usr/jails/t_archbsd" ]; then
 echo "t_archbsd is missing. Downloading..."
 mkdir -p /usr/jails/t_archbsd/var/lib/pacman
