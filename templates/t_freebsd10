@@ -8,10 +8,12 @@ rm /tmp/base.txz
 fi
 
 # Provision the jail
-echo "Creating and provision the $hostname jail..."
+echo "Create and provision the $hostname jail..."
 rsync -Ha /usr/jails/t_freebsd10/ /usr/jails/$hostname
+
+# Configure the jail
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
-cp ./rc.conf /usr/jails/$hostname/etc/
-cp ./periodic.conf /usr/jails/$hostname/etc/
+cp /etc/localtime /usr/jails/$hostname/etc/
+cp examples/rc.conf /usr/jails/$hostname/etc/
+cp examples/periodic.conf /usr/jails/$hostname/etc/
 echo "Your jail is ready"
-fi

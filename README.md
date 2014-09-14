@@ -14,15 +14,13 @@ Requirements
 - Tested on FreeBSD 10 i386 and amd64. 
 - a working internet connection 
 - perl5, debootstrap, rsync, pacman (from pkg or ports) 
-- git (optional) 
+- git
 - Enable fdescfs, linprocfs, tmpfs (add fdescfs_load="YES", linprocfs_load="YES" and tmpfs_load="YES" in /boot/loader.conf).
 - a sonic screwdriver (ok, it's optional)
 
 Installation
 ============
  
-With git:
-
 ```
 git clone https://github.com/src386/mkjl
 ```
@@ -42,7 +40,7 @@ Available templates :
 Exemple :
 
 ```
-./mkjl.sh www jessie
+./mkjl.sh www t_debian8
 ```
 
 mkjl does not parse (yet) /etc/jail.conf so you have to do it manually. Take a look at the `jail.conf.example` file. Do not forget to add `jail_enable="YES"` in `/etc/rc.conf.local`.
@@ -68,3 +66,10 @@ TODO
 - Error handling
 - Automatic parameters for localtime
 - Add support for more templates
+
+THANKS
+======
+
+- Etenil (english correction)
+- Ezjail (periodic.conf and rc.conf)
+- ArchBSD irc (@Amzo)

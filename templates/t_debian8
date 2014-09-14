@@ -28,4 +28,4 @@ tmpfs           /usr/jails/$hostname/run/shm        tmpfs           rw,noexec,no
 # Fix base-passwd
 cp /etc/master.passwd /usr/jails/$hostname/etc/
 pwd_mkdb -d /usr/jails/$hostname/etc -p /usr/jails/$hostname/etc/master.passwd
-jail -c path=/usr/jails/$hostname command=/usr/bin/dpkg-reconfigure base-passwd
+jail -c path=/usr/jails/$hostname command=/usr/sbin/dpkg-reconfigure -f noninteractive base-passwd
