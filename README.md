@@ -57,6 +57,7 @@ Bugs
 - t_archbsd is to verbose, pacman output should be hidden
 - t_archbsd will leave a devfs mountpoint
 - t_debian8 template may fail to install because the debootstrap package is broken
+- openssh-server does not working on t_debian7. This is an debian issue and probably won't be fixed. Use t_debian8 instead
 
 TODO
 ====

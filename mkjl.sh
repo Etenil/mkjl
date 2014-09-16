@@ -17,7 +17,11 @@ echo "$hostname already exists. Aborting..."
 break
 fi
 
-# Templates
+## Debian 7
+if [ $template = t_debian7 ]; then
+. ./templates/t_debian7
+fi
+
 ## Debian 8
 if [ $template = t_debian8 ]; then
 . ./templates/t_debian8
