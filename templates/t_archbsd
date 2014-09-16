@@ -14,7 +14,7 @@ mkdir -p /usr/jails/t_archbsd/var/lib/pacman
 mkdir -p /usr/jails/t_archbsd/var/cache/pacman/pkg
 
 # Generate a temporary pacman.conf
-rm /tmp/pacman.conf 2>%1
+rm /tmp/pacman.conf
 printf "[options]
 SigLevel = Never
 [core]
