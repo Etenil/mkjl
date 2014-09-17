@@ -10,11 +10,11 @@ if [ ! -d "/usr/jails/t_archbsd" ]; then
 echo "t_archbsd is missing. Downloading..."
 
 # Create pacman directories
-mkdir -p /usr/jails/t_archbsd/var/lib/pacman
+mkdir -p /usr/jails/t_archbsd/var/lib/pacman 
 mkdir -p /usr/jails/t_archbsd/var/cache/pacman/pkg
 
 # Generate a temporary pacman.conf
-rm /tmp/pacman.conf
+rm /tmp/pacman.conf 2>/dev/null
 printf "[options]
 SigLevel = Never
 [core]
@@ -26,13 +26,13 @@ pacman -Sy base \
 --noconfirm \
 --cachedir /usr/jails/t_archbsd/var/cache/pacman \
 --arch $arch \
---config /tmp/pacman.conf
+--config /tmp/pacman.conf || error_exit "pacman failed to install base"
 rm /tmp/pacman.conf
 fi
 
 # Provision the jail
 echo "Create and provision the $hostname jail..."
-rsync -Ha /usr/jails/t_archbsd/ /usr/jails/$hostname
+rsync -Ha /usr/jails/t_archbsd/ /usr/jails/$hostname || error_exit "failed to provision the jail"
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
 
 # Configure the jail
@@ -48,4 +48,6 @@ jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --init
 jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --populate archbsd
 
 # Clean
+# umount is invoked 2 times or it won't work
+umount /usr/jails/$hostname/dev
 umount /usr/jails/$hostname/dev 

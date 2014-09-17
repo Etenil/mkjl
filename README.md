@@ -33,6 +33,7 @@ Usage
 ```
 
 Available templates :
+- t_debian7 (Debian GNU/kFreeBSD Wheezy)
 - t_debian8 (Debian GNU/kFreeBSD Jessie)
 - t_archbsd (ArchBSD current)
 - t_freebsd10 (FreeBSD 10.0-RELEASE)
@@ -51,11 +52,15 @@ Delete a jail :
 chflags -R noschg /usr/jails/www && rm -rf /usr/jails/www
 ```
 
+Delete everything (templates and jails) :
+
+```
+./mkclean.sh
+```
+
 Bugs
 ====
 
-- t_archbsd is to verbose, pacman output should be hidden
-- t_archbsd will leave a devfs mountpoint
 - t_debian8 template may fail to install because the debootstrap package is broken
 - openssh-server does not working on t_debian7. This is an debian issue and probably won't be fixed. Use t_debian8 instead
 
@@ -64,9 +69,6 @@ TODO
 
 - Better coding skills (pebkac)
 - Better English
-- Error handling
-- Automatic parameters for localtime
-- Add support for more templates
 
 THANKS
 ======

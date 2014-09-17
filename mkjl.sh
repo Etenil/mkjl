@@ -5,16 +5,21 @@
 hostname=$1
 template=$2
 
-# At first run, and if it doesn't exist yet, /usr/jails is created.
+# Functions
+error_exit ()
+{
+echo "$1" 1>&2
+exit 1
+}
+
+# Create /usr/jails if needed
 if [ ! -d "/usr/jails" ]; then
-echo "Creating /usr/jails..."
-mkdir /usr/jails
+mkdir /usr/jails || error_exit "Cannot create /usr/jails"
 fi
 
 # If the jail already exists, abort the provisioning with an error.
 if [ -d "/usr/jails/$hostname" ]; then
-echo "$hostname already exists. Aborting..."
-break
+error_exit "$hostname already exists. Aborting..."
 fi
 
 ## Debian 7
