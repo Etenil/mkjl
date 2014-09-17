@@ -16,7 +16,6 @@ http://ftp.debian.org/debian || error_exit "Failed to debootstrap jessie"
 fi
 
 # Provision the jail
-echo "Creating and provisioning the $hostname jail..."
 rsync -Ha /usr/jails/t_debian8/ /usr/jails/$hostname
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
 

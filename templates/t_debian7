@@ -16,7 +16,6 @@ http://ftp.debian.org/debian || error_exit "Failed to debootstrap wheezy"
 fi
 
 # Provision the jail
-echo "Creating and provisioning the $hostname jail..."
 rsync -Ha /usr/jails/t_debian7/ /usr/jails/$hostname || error_exit "Failed to provision the jail"
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
 

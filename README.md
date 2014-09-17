@@ -13,9 +13,8 @@ Requirements
 
 - Tested on FreeBSD 10 i386 and amd64. 
 - a working internet connection 
-- perl5, debootstrap, rsync, pacman (from pkg or ports) 
-- git
-- Enable fdescfs, linprocfs, tmpfs (add fdescfs_load="YES", linprocfs_load="YES" and tmpfs_load="YES" in /boot/loader.conf).
+- git, perl5, debootstrap, rsync, pacman (from pkg or ports) 
+- Enable fdescfs, linprocfs, (add fdescfs_load="YES" and linprocfs_load="YES" in /boot/loader.conf).
 - a sonic screwdriver (ok, it's optional)
 
 Installation
@@ -75,4 +74,4 @@ THANKS
 
 - Etenil (english correction)
 - Ezjail (periodic.conf and rc.conf)
-- ArchBSD irc (@Amzo)
+- ArchBSD irc
