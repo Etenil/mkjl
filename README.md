@@ -82,18 +82,19 @@ Delete everything (templates and jails) :
 Bugs
 ====
 
-- t_debian8 template may fail to install because the debootstrap package is broken
-- openssh-server does not working on t_debian7. This is an debian issue and probably won't be fixed. Use t_debian8 instead
+- t_debian7 needs to be prompted Yes manually
+- openssh-server does not working on t_debian7. This is an debian Wheezy issue and probably won't be fixed. Use t_debian8 instead
 
 TODO
 ====
 
 - Better coding skills (pebkac)
 - Better English
+- Auto parse /etc/jail.conf
 
 THANKS
 ======
 
 - Etenil (english correction)
-- Ezjail (periodic.conf and rc.conf)
+- Ezjail project (I took periodic.conf and rc.conf)
 - ArchBSD irc

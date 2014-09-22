@@ -7,7 +7,6 @@ fi
 
 # t_archbsd must exist; if it doesn't, download and install it.
 if [ ! -d "/usr/jails/t_archbsd" ]; then
-echo "t_archbsd is missing. Downloading..."
 
 # Create pacman directories
 mkdir -p /usr/jails/t_archbsd/var/lib/pacman 
@@ -31,7 +30,6 @@ rm /tmp/pacman.conf
 fi
 
 # Provision the jail
-echo "Create and provision the $hostname jail..."
 rsync -Ha /usr/jails/t_archbsd/ /usr/jails/$hostname || error_exit "failed to provision the jail"
 cp /etc/resolv.conf /usr/jails/$hostname/etc/
 
@@ -51,3 +49,6 @@ jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --popu
 # umount is invoked 2 times or it won't work
 umount /usr/jails/$hostname/dev
 umount /usr/jails/$hostname/dev 
+
+# Confirm
+echo "$hostname is ready"
