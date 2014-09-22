@@ -17,8 +17,30 @@ Requirements
 - Enable fdescfs, linprocfs, (add fdescfs_load="YES" and linprocfs_load="YES" in /boot/loader.conf).
 - a sonic screwdriver (ok, it's optional)
 
-Installation
-============
+Install requirements
+====================
+
+```
+pkg update && pkg install git perl5 debootstrap rsync pacman
+```
+
+Load modules for Debian
+=======================
+
+```
+kldload fdescfs
+kldload linprocfs
+```
+
+Or, persistent configuration :
+
+```
+echo fdescfs_load="YES" >> /boot/loader.conf
+echo linprocfs_load="YES" >> /boot/loader.conf
+```
+
+Get mkjl
+========
  
 ```
 git clone https://github.com/src386/mkjl
