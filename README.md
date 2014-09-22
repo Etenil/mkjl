@@ -41,9 +41,18 @@ echo linprocfs_load="YES" >> /boot/loader.conf
 
 Get mkjl
 ========
+
+With git :
  
 ```
 git clone https://github.com/src386/mkjl
+```
+
+Without git :
+
+```
+fetch --no-verify-peer https://github.com/src386/mkjl/archive/master.zip
+unzip master.zip
 ```
 
 Usage 
