@@ -91,7 +91,7 @@ Delete everything (templates and jails) :
 Bugs
 ====
 
-- t_debian7 needs to be prompted Yes manually
+- t_debian7 requires you to answer 'Yes' at the prompt
 - openssh-server does not working on t_debian7. This is an debian Wheezy issue and probably won't be fixed. Use t_debian8 instead
 
 TODO
