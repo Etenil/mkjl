@@ -11,7 +11,7 @@ How does it works ?
 Requirements 
 =============
 
-- Tested on FreeBSD 10 i386 and amd64. 
+- Tested on FreeBSD10, FreeBSD10.1b i386 and amd64. 
 - a working internet connection 
 - git, perl5, debootstrap, rsync, pacman (from pkg or ports) 
 - Enable fdescfs, linprocfs, (add fdescfs_load="YES" and linprocfs_load="YES" in /boot/loader.conf).
