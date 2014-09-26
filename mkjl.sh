@@ -6,11 +6,7 @@ hostname=$1
 template=$2
 
 # Functions
-error_exit ()
-{
-echo "$1" 1>&2
-exit 1
-}
+. ./src/functions.sh
 
 # Create /usr/jails if needed
 if [ ! -d "/usr/jails" ]; then
