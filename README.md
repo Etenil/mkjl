@@ -66,6 +66,7 @@ Available templates :
 - t_debian7 (Debian GNU/kFreeBSD Wheezy)
 - t_debian8 (Debian GNU/kFreeBSD Jessie)
 - t_archbsd (ArchBSD current)
+- t_gentoobsd (GentooBSD)
 - t_freebsd10 (FreeBSD 10.0-RELEASE)
 
 Exemple :
