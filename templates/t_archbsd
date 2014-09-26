@@ -43,11 +43,9 @@ cp examples/periodic.conf /usr/jails/$hostname/etc/
 
 # Populate pacman keyring inside the jail
 jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --init
-jail -c path=/usr/jails/$hostname mount.devfs command=/usr/bin/pacman-key --populate archbsd
+jail -c path=/usr/jails/$hostname command=/usr/bin/pacman-key --populate archbsd
 
 # Clean
-# umount is invoked 2 times or it won't work
-umount /usr/jails/$hostname/dev
 umount /usr/jails/$hostname/dev 
 
 # Confirm
