@@ -41,8 +41,3 @@ fi
 if [ $template = t_archbsd ]; then
 . ./templates/t_archbsd
 fi
-
-## GentooBSD
-if [ $template = t_gentoo ]; then
-. ./templates/t_gentoo
-fi
