@@ -3,8 +3,8 @@ mkjl
 
 mkjl is an attempt at a script to create FreeBSD, Debian GNU/kFreeBSD and ArchBSD jail inside a FreeBSD host. 
 
-How does it works ? 
-===================
+How does it work? 
+=================
 
 `mkjl` creates a local template for FreeBSD, ArchBSD and Debian GNU/kFreeBSD according to the jail type. The template is then duplicated with rsync to provision the jail.
 
@@ -89,6 +89,17 @@ Delete everything (templates and jails) :
 ./mkclean.sh
 ```
 
+How to write a template
+=======================
+Templates extend the base template that can be found in `src/base_template.sh`. Mkjl proceeds to call on the following functions during jail creation:
+
+* `mkjl_prepare_env()` is called to probe the environment and prepare variables for provisioning
+* `mkjl_prepare_fs()` prepares the template's filesystem that will be cached prior to provisioning
+* `mkjl_provision()` is used to do the actual provisioning of the jail from the cached template files
+* `mkjl_configure()` is run after the provisioning, to configure the newly deployed jail and cleaning it up
+
+Templates can also inherit from other templates, thus making the task of extending a template very easy. Look a the `t_debian8.sh` template for an example of this.
+
 Bugs
 ====
 
@@ -105,6 +116,6 @@ TODO
 THANKS
 ======
 
-- Etenil (english correction)
+- Etenil
 - Ezjail project (I took periodic.conf and rc.conf)
 - ArchBSD irc
