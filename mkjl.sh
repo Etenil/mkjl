@@ -1,44 +1,47 @@
 #!/bin/sh
-#
 
 # Define variables
+mkjl_root=$(dirname $0)
+jails_root="/usr/jails/"
 hostname=$1
 template=$2
+template_recipe="${mkjl_root}/templates/${template}.sh"
+template_path="${jails_root}/${template}"
 
 # Functions
-. ./src/functions.sh
+. "${mkjl_root}/src/functions.sh"
+. "${mkjl_root}/src/base_template.sh"
 
 # Create /usr/jails if needed
 if [ ! -d "/usr/jails" ]; then
-mkdir /usr/jails || error_exit "Cannot create /usr/jails"
+    mkdir /usr/jails || error_exit "Cannot create /usr/jails"
 fi
 
 # If the jail already exists, abort the provisioning with an error.
 if [ -d "/usr/jails/$hostname" ]; then
-error_exit "$hostname already exists. Aborting..."
+    error_exit "$hostname already exists. Aborting..."
 fi
 
-## Debian 7
-if [ $template = t_debian7 ]; then
-. ./templates/t_debian7.sh
+# The requested template must exist.
+if [ ! -f "${template_recipe}" ]; then
+    error_exit "ERROR: Template '${template}' not found at ${template_recipe}." 2
 fi
 
-## Debian 8
-if [ $template = t_debian8 ]; then
-. ./templates/t_debian8.sh
+# Sourcing the template
+. "${template_recipe}"
+
+# Probing the environment
+mkjl_prepare_env
+
+# If we don't already have the template contents, then download it.
+if [ ! -d "${template_path}" ]; then
+    mkjl_prepare_fs
 fi
 
-## FreeBSD 10
-if [ $template = t_freebsd10 ]; then
-. ./templates/t_freebsd10.sh
-fi
+# Provision
+mkjl_provision
 
-## ArchBSD
-if [ $template = t_archbsd ]; then
-. ./templates/t_archbsd.sh
-fi
+# Then configure the jail
+mkjl_configure
 
-## GentooBSD
-if [ $template = t_gentoobsd ]; then
-. ./templates/t_gentoobsd.sh
-fi
+echo "$hostname is ready"

@@ -9,3 +9,5 @@ while true; do
   *) echo "Please type y or n" ;;
  esac
 done
+
+echo "All jails cleaned."
