@@ -1,36 +1,4 @@
-# Debian doesn't use the same arch names as FreeBSD. Translating here.
-if [ `uname -m` = amd64 ]; then
-arch=kfreebsd-amd64             
-elif [ `uname -m` = i386 ]; then
-arch=kfreebsd-i386
-fi
+# Inheriting from debian7.
+. "${mkjl_root}/templates/t_debian7.sh"
 
-# t_debian8 must exist; if it doesn't, download and install it.
-if [ ! -d "/usr/jails/t_debian8" ]; then
-echo "t_debian8 is missing. Downloading..."
-debootstrap \
---arch $arch \
-jessie \
-/usr/jails/t_debian8 \
-http://ftp.debian.org/debian || error_exit "Failed to debootstrap jessie"
-fi
-
-# Provision the jail
-rsync -Ha /usr/jails/t_debian8/ /usr/jails/$hostname
-cp /etc/resolv.conf /usr/jails/$hostname/etc/
-
-# Configure the jail
-printf \
-"proc	/usr/jails/$hostname/proc	linprocfs	rw	0 0
-sys	/usr/jails/$hostname/sys	linsysfs	rw	0 0
-fdescfs	/usr/jails/$hostname/dev/fd	fdescfs		rw	0 0"\
->> /usr/jails/$hostname/etc/fstab.$hostname
-mkdir /usr/jails/$hostname/dev/fd
-
-# Fix base-passwd
-cp /etc/master.passwd /usr/jails/$hostname/etc/
-pwd_mkdb -d /usr/jails/$hostname/etc -p /usr/jails/$hostname/etc/master.passwd
-jail -c path=/usr/jails/$hostname command=/usr/sbin/dpkg-reconfigure -f noninteractive base-passwd
-
-# Confirm
-echo "$hostname is ready"
+debian_release="jessie"
