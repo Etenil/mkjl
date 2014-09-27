@@ -20,25 +20,25 @@ fi
 
 ## Debian 7
 if [ $template = t_debian7 ]; then
-. ./templates/t_debian7
+. ./templates/t_debian7.sh
 fi
 
 ## Debian 8
 if [ $template = t_debian8 ]; then
-. ./templates/t_debian8
+. ./templates/t_debian8.sh
 fi
 
 ## FreeBSD 10
 if [ $template = t_freebsd10 ]; then
-. ./templates/t_freebsd10
+. ./templates/t_freebsd10.sh
 fi
 
 ## ArchBSD
 if [ $template = t_archbsd ]; then
-. ./templates/t_archbsd
+. ./templates/t_archbsd.sh
 fi
 
 ## GentooBSD
 if [ $template = t_gentoobsd ]; then
-. ./templates/t_gentoobsd
+. ./templates/t_gentoobsd.sh
 fi
