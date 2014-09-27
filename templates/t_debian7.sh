@@ -1,4 +1,4 @@
-mkjl_arch="kfreebsd-amd64"
+mkjl_arch=""
 debian_release="wheezy"
 
 mkjl_prepare_env ()

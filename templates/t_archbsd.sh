@@ -1,5 +1,5 @@
 # Declaring the templates variables. Good practice.
-mkjl_arch="x86_64"
+mkjl_arch=""
 
 mkjl_prepare_env ()
 {
